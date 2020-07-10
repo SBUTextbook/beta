@@ -2,6 +2,7 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import { Grid, Table, TableHeaderRow, TableFilterRow } from '@devexpress/dx-react-grid-material-ui';
 import { DataTypeProvider, SortingState, IntegratedSorting, FilteringState, IntegratedFiltering } from '@devexpress/dx-react-grid';
 import axios from 'axios';
@@ -59,13 +60,14 @@ export default class TextbookList extends React.Component {
         }
         return (
             <div style={{margin: '2em'}}>
+                <a href="/#/upload/#/"><Button style={{backgroundColor:'grey'}}>Upload</Button></a>
+                <hr />
                 <Autocomplete
                     options={this.state.textbooks.map(textbook => textbook.course).sort()}
                     renderInput={(params) => <TextField {...params} label="Course" variant="outlined" 
                     onChange={event => this.setState({ search: event.target.value })}
                     />}
                 />
-                <button>Upload</button>
                 <Paper>
                     <Grid rows={this.state.textbooks.filter(textbook => textbook.course.includes(this.state.search.toUpperCase()))} columns={columns}>
                         <SortingState defaultSorting={[{ columnName: 'course', direction: 'asc' }]} />
