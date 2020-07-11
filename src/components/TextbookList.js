@@ -69,7 +69,7 @@ export default class TextbookList extends React.Component {
                     />}
                 />
                 <Paper>
-                    <Grid rows={this.state.textbooks.filter(textbook => textbook.course.includes(this.state.search.toUpperCase()))} columns={columns}>
+                    <Grid rows={this.state.textbooks.filter(textbook => textbook.approved && textbook.course.includes(this.state.search.toUpperCase()))} columns={columns}>
                         <SortingState defaultSorting={[{ columnName: 'course', direction: 'asc' }]} />
                         <IntegratedSorting />
                         <LibgenLinkProvider for={['linkInfo']} />
