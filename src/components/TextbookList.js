@@ -17,9 +17,7 @@ const columns = [
 const LibgenLinkFormatter = ({ value }) => {
     return (
         <span>
-            <a href={`http://gen.lib.rus.ec/book/index.php?md5=${value.md5}`}>Download </a>
-            <a href={`https://library.bz/main/uploads/${value.md5}`}
-            style={{visibility: `${ value.age < 2 * (24 * 60 * 60 * 1000) ? 'visible' : 'hidden'}`, fontSize: '0.8em' }}>(alternate download)</a>
+            <a href={`http://gen.lib.rus.ec/book/index.php?md5=${value}`}>Download </a>
         </span>
     );
 } 
@@ -48,7 +46,7 @@ export default class TextbookList extends React.Component {
                     course: textbook.course.toUpperCase(),
                     textbook: `${textbook.title} (${textbook.edition} edition),
                                ${textbook.author}`,
-                    linkInfo: { md5: textbook.md5, age: Date.now() - new Date(textbook.createdAt).getTime() }, // age is in ms
+                    md5: textbook.md5,
                 };
             })
         });
@@ -69,10 +67,10 @@ export default class TextbookList extends React.Component {
                     />}
                 />
                 <Paper>
-                    <Grid rows={this.state.textbooks.filter(textbook => textbook.approved && textbook.course.includes(this.state.search.toUpperCase()))} columns={columns}>
+                    <Grid rows={this.state.textbooks.filter(textbook => !textbook.approved && textbook.course.includes(this.state.search.toUpperCase()))} columns={columns}>
                         <SortingState defaultSorting={[{ columnName: 'course', direction: 'asc' }]} />
                         <IntegratedSorting />
-                        <LibgenLinkProvider for={['linkInfo']} />
+                        <LibgenLinkProvider for={['md5']} />
                         <Table />
                         <TableHeaderRow />
                     </Grid>
