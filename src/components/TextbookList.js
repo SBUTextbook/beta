@@ -11,7 +11,7 @@ import TextbookUploadForm from './TextbookUploadForm';
 const columns = [
     { name: 'course', title: 'Course' },
     { name: 'textbook', title: 'Textbook' },
-    { name: 'linkInfo', title: 'Download' },
+    { name: 'md5', title: 'Download' },
 ];
 
 const LibgenLinkFormatter = ({ value }) => {
