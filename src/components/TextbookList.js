@@ -47,6 +47,7 @@ export default class TextbookList extends React.Component {
                     textbook: `${textbook.title} (${textbook.edition} edition),
                                ${textbook.author}`,
                     md5: textbook.md5,
+                    approved: textbook.approved,
                 };
             })
         });
@@ -67,7 +68,7 @@ export default class TextbookList extends React.Component {
                     />}
                 />
                 <Paper>
-                    <Grid rows={this.state.textbooks.filter(textbook => !textbook.approved && textbook.course.includes(this.state.search.toUpperCase()))} columns={columns}>
+                    <Grid rows={this.state.textbooks.filter(textbook => textbook.approved && textbook.course.includes(this.state.search.toUpperCase()))} columns={columns}>
                         <SortingState defaultSorting={[{ columnName: 'course', direction: 'asc' }]} />
                         <IntegratedSorting />
                         <LibgenLinkProvider for={['md5']} />
