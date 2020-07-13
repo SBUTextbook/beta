@@ -3,10 +3,9 @@ import Paper from '@material-ui/core/Paper';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Grid, Table, TableHeaderRow, TableFilterRow } from '@devexpress/dx-react-grid-material-ui';
-import { DataTypeProvider, SortingState, IntegratedSorting, FilteringState, IntegratedFiltering } from '@devexpress/dx-react-grid';
+import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
+import { DataTypeProvider, SortingState, IntegratedSorting } from '@devexpress/dx-react-grid';
 import axios from 'axios';
-import TextbookUploadForm from './TextbookUploadForm';
 
 const columns = [
     { name: 'course', title: 'Course' },

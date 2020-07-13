@@ -18,6 +18,7 @@ export default class TextbookUploadForm extends React.Component {
         issn: '',
         courseDepartment: '',
         courseCode: '',
+        libgenLink: '',
     };
 
     async getMd5(file) {
@@ -36,11 +37,21 @@ export default class TextbookUploadForm extends React.Component {
 
     async formSubmit(e) {
         e.preventDefault();
-        const formData = new FormData();
         const form = document.getElementById('file');
-        formData.append("file", form.files[0]);
+        let md5;
+        const formData = new FormData();
 
-        const md5 = await this.getMd5(form.files[0]);
+        if (form.files[0]) {
+            formData.append("file", form.files[0]);
+            md5 = await this.getMd5(form.files[0]);
+        } else {
+            if (this.state.libgenLink.includes('/book/index.php?md5=')) {
+                md5 = this.state.libgenLink.substring(this.state.libgenLink.indexOf('md5=') + 4);
+            } else {
+                alert('Invalid libgen link provided!');
+                return;
+            }
+        }
 
         const { title, author, pages, description, edition, year, publisher, isbn, issn, courseDepartment, courseCode, language } = this.state;
 
@@ -107,7 +118,8 @@ export default class TextbookUploadForm extends React.Component {
             <div style={{margin: '2em'}}>
                 <Form onSubmit={event => this.formSubmit(event)}>
                     <legend>Upload a Textbook</legend>
-                    <Input id="file" type="file" />
+                    <Input id="file" type="file" required={!this.state.libgenLink} />
+                    <Input label="Libgen Link*" onChange={e => this.setState({libgenLink: e.target.value})} placeholder="LibGen Link" />
                     <Input label="Title*" onChange={e => this.setState({title: e.target.value})} placeholder="Title" required={true} />
                     <Input label="Author*" onChange={e => this.setState({author: e.target.value})} placeholder="Author" required={true} />
                     <Input label="Page Count" onChange={e => this.setState({pages: e.target.value})} placeholder="Page Count" />
