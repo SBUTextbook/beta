@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
+import { Grid, Table, TableHeaderRow, TableColumnResizing } from '@devexpress/dx-react-grid-material-ui';
 import { DataTypeProvider, SortingState, IntegratedSorting } from '@devexpress/dx-react-grid';
 import axios from 'axios';
 
@@ -42,7 +42,7 @@ export default class TextbookList extends React.Component {
         this.setState({
             textbooks: res.data.textbooks.map((textbook) => {
                 return {
-                    course: textbook.course.toUpperCase(),
+                    course: `${textbook.course.toUpperCase().substring(0, 3)} ${textbook.course.substring(3)}`,
                     textbook: `${textbook.title} (${textbook.edition} edition),
                                ${textbook.author}`,
                     md5: textbook.md5,
@@ -72,6 +72,11 @@ export default class TextbookList extends React.Component {
                         <IntegratedSorting />
                         <LibgenLinkProvider for={['md5']} />
                         <Table />
+                        <TableColumnResizing defaultColumnWidths={[
+                            { columnName: 'course', width: 180 },
+                            { columnName: 'textbook', width: 1200 },
+                            { columnName: 'md5', width: 180 },
+                            ]} />
                         <TableHeaderRow />
                     </Grid>
                 </Paper>
