@@ -63,9 +63,9 @@ export default class TextbookUploadForm extends React.Component {
                 console.log("Already on libgen.");
                 const books = await axios.get('https://sbutextbooks.herokuapp.com/books');
                 for (const book of books.data.textbooks) {
-                    if (book.md5 === md5) {
+                    if (book.md5 === md5 && book.courseDepartment === courseDepartment && book.courseCode === courseCode) {
                         return;
-                    } 
+                    }
                 }
                 body = { title, author, pages, description, edition, year, publisher, isbn, issn, courseDepartment, courseCode, language, md5 };
                 await axios({
