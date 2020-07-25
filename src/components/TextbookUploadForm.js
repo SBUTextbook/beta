@@ -68,11 +68,16 @@ export default class TextbookUploadForm extends React.Component {
                     }
                 }
                 body = { title, author, pages, description, edition, year, publisher, isbn, issn, courseDepartment, courseCode, language, md5 };
-                await axios({
-                    method: 'POST',
-                    url: 'https://sbutextbooks.herokuapp.com/upload',
-                    data: Qs.stringify(body),
-                });
+                try {
+                    await axios({
+                        method: 'POST',
+                        url: 'https://sbutextbooks.herokuapp.com/upload',
+                        data: Qs.stringify(body),
+                    });
+                    alert('Upload complete.')
+                } catch(err) {
+                    alert(`Upload failed! ${err}`)
+                }
                 return;
             }
         } catch(err) {
@@ -96,20 +101,27 @@ export default class TextbookUploadForm extends React.Component {
                     data: Qs.stringify(body),
                 })
                 .then(async (response) => {
-                    if (response.data.toString().includes('The record has been successfully saved.') && !response.data.toString().includes('The file is already in the upload queue and awaiting moderation')) {
-                        alert('Upload failed!');
+                    if (!response.data.toString().includes('The record has been successfully saved.') && response.data.toString().includes('The file is already in the upload queue and awaiting moderation')) {
+                        alert('File already uploaded and awaiting moderation.');
+                        return;
                     } else {
                         body = { title, author, pages, description, edition, year, publisher, isbn, issn, courseDepartment, courseCode, language, md5 };
-                        await axios({
-                            method: 'POST',
-                            url: 'https://sbutextbooks.herokuapp.com/upload',
-                            data: Qs.stringify(body),
-                        });
+                        try {
+                            await axios({
+                                method: 'POST',
+                                url: 'https://sbutextbooks.herokuapp.com/upload',
+                                data: Qs.stringify(body),
+                            });
+                            alert('Upload successful!');
+                        } catch(err) {
+                            alert(`Upload failed, server error ${err}`);
+                        }
+                        return;
                     }
                 });
             })
             .catch((response) => {
-                console.log(response);
+                alert(response);
             });
     }
 
