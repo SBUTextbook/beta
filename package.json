@@ -2,7 +2,7 @@
   "name": "beta",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://SBUTextbook.github.io/client",
+  "homepage": "http://SBUTextbook.github.io/beta",
   "dependencies": {
     "@devexpress/dx-react-core": "^2.6.4",
     "@devexpress/dx-react-grid": "^2.6.4",
