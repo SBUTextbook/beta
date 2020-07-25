@@ -105,6 +105,8 @@ export default class TextbookUploadForm extends React.Component {
                         alert('File already uploaded and awaiting moderation.');
                         return;
                     } else if (!response.data.toString().includes('The record has been successfully saved.')) {
+                        let error = response.data.toString();
+                        error = error.substring(error.indexOf('form_error'), error.indexOf('<legend>Content properties</legend>'))
                         alert(`Upload failed, LibGen rejected the file.`);
                         return;
                     } else {
