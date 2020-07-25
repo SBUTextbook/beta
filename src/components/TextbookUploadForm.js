@@ -141,7 +141,7 @@ export default class TextbookUploadForm extends React.Component {
                     <Input label="Author*" onChange={e => this.setState({author: e.target.value})} placeholder="Author" required={true} />
                     <Input label="Page Count" onChange={e => this.setState({pages: e.target.value})} placeholder="Page Count" />
                     <Textarea label="Description" onChange={e => this.setState({description: e.target.value})} placeholder="Description (optional)" />
-                    <Input label="Edition*" onChange={e => this.setState({edition: e.target.value})} placeholder="ex. 1st, 2nd, 5th, etc." required={true} />
+                    <Input label="Edition*" onChange={e => this.setState({edition: e.target.value})} placeholder="ex. 1, 2, 5, etc. Must be a number. for ex. '1st' is invalid" required={true} />
                     <Input label="Language*" onChange={e => this.setState({language: e.target.value})} placeholder="Language" required={true} />
                     <Input label="Release Year" onChange={e => this.setState({year: e.target.value})} placeholder="Release Year" />
                     <Input label="Publisher" onChange={e => this.setState({publisher: e.target.value})} placeholder="Publisher" />
