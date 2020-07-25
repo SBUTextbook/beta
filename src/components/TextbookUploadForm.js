@@ -101,8 +101,11 @@ export default class TextbookUploadForm extends React.Component {
                     data: Qs.stringify(body),
                 })
                 .then(async (response) => {
-                    if (!response.data.toString().includes('The record has been successfully saved.') && response.data.toString().includes('The file is already in the upload queue and awaiting moderation')) {
+                    if (response.data.toString().includes('The file is already in the upload queue and awaiting moderation')) {
                         alert('File already uploaded and awaiting moderation.');
+                        return;
+                    } else if (!response.data.toString().includes('The record has been successfully saved.')) {
+                        alert(`Upload failed, LibGen rejected the file.`);
                         return;
                     } else {
                         body = { title, author, pages, description, edition, year, publisher, isbn, issn, courseDepartment, courseCode, language, md5 };
