@@ -58,7 +58,7 @@ export default class TextbookList extends React.Component {
         }
         return (
             <div style={{margin: '2em'}}>
-                <a href='https://sbutextbook.github.io/client/#/upload/'><Button style={{backgroundColor:'grey'}}>Upload</Button></a>
+                <a href='https://sbutextbook.github.io/beta/#/upload/'><Button style={{backgroundColor:'grey'}}>Upload</Button></a>
                 <hr />
                 <Autocomplete
                     options={this.state.textbooks.map(textbook => textbook.course).sort()}
